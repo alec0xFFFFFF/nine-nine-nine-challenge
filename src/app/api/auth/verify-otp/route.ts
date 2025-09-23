@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { stytchConfig } from '@/lib/stytch';
-import { createOrUpdateUser } from '@/lib/db-v2';
+import { createOrUpdateUser } from '@/lib/db-prisma';
 import jwt from 'jsonwebtoken';
 
 export async function POST(request: Request) {
@@ -55,8 +55,8 @@ export async function POST(request: Request) {
     const token = jwt.sign(
       { 
         userId: user.id,
-        phoneNumber: user.phone_number,
-        displayName: user.display_name,
+        phoneNumber: user.phoneNumber,
+        displayName: user.displayName,
         stytchUserId: data.user_id
       },
       process.env.JWT_SECRET || 'your-secret-key',
@@ -76,8 +76,8 @@ export async function POST(request: Request) {
       success: true,
       user: {
         id: user.id,
-        phoneNumber: user.phone_number,
-        displayName: user.display_name
+        phoneNumber: user.phoneNumber,
+        displayName: user.displayName
       }
     });
   } catch (error: any) {

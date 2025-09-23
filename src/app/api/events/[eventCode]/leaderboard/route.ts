@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getEventByCode, getEventLeaderboard } from '@/lib/db-v2';
+import { getEventByCode, getEventLeaderboard } from '@/lib/db-prisma';
 
 export async function GET(
   request: Request,

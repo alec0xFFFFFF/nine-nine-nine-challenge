@@ -1,0 +1,54 @@
+[build]
+builder = "NIXPACKS"
+buildCommand = "npm run build"
+watchPatterns = ["src/**", "prisma/**", "package.json", "package-lock.json"]
+
+[build.variables]
+DATABASE_URL = "${{Postgres.DATABASE_URL}}"
+
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+# Development environment
+[environments.development]
+[environments.development.variables]
+NODE_ENV = "development"
+DATABASE_URL = "${{Postgres.DATABASE_URL}}"
+PRISMA_GENERATE_SKIP_AUTOINSTALL = "true"
+
+# Production environment
+[environments.production]
+[environments.production.variables]
+NODE_ENV = "production"
+DATABASE_URL = "${{Postgres.DATABASE_URL}}"
+PRISMA_GENERATE_SKIP_AUTOINSTALL = "true"
+
+# Stytch Authentication
+STYTCH_PROJECT_ID = "${{STYTCH_PROJECT_ID}}"
+STYTCH_SECRET = "${{STYTCH_SECRET}}"
+NEXT_PUBLIC_STYTCH_PUBLIC_TOKEN = "${{NEXT_PUBLIC_STYTCH_PUBLIC_TOKEN}}"
+STYTCH_PROJECT_ENV = "${{STYTCH_PROJECT_ENV}}"
+
+# Cloudflare R2 Storage
+R2_ACCOUNT_ID = "${{R2_ACCOUNT_ID}}"
+R2_ACCESS_KEY_ID = "${{R2_ACCESS_KEY_ID}}"
+R2_SECRET_ACCESS_KEY = "${{R2_SECRET_ACCESS_KEY}}"
+R2_BUCKET_NAME = "${{R2_BUCKET_NAME}}"
+R2_BUCKET_PATH = "${{R2_BUCKET_PATH}}"
+NEXT_PUBLIC_R2_PUBLIC_URL = "${{NEXT_PUBLIC_R2_PUBLIC_URL}}"
+
+# Optional: Pusher for real-time updates
+PUSHER_APP_ID = "${{PUSHER_APP_ID}}"
+PUSHER_SECRET = "${{PUSHER_SECRET}}"
+NEXT_PUBLIC_PUSHER_KEY = "${{NEXT_PUBLIC_PUSHER_KEY}}"
+NEXT_PUBLIC_PUSHER_CLUSTER = "${{NEXT_PUBLIC_PUSHER_CLUSTER}}"
+
+# JWT Secret for authentication
+JWT_SECRET = "${{JWT_SECRET}}"
+
+# Application URL
+NEXT_PUBLIC_BASE_URL = "${{NEXT_PUBLIC_BASE_URL}}"

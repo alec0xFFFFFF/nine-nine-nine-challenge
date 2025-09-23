@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getUser } from '@/lib/auth-v2';
 import { generateUploadUrl } from '@/lib/r2';
-import { saveMediaUpload, getEventByCode } from '@/lib/db-v2';
+import { saveMediaUpload, getEventByCode } from '@/lib/db-prisma';
 
 export async function POST(
   request: Request,

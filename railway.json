@@ -1,13 +1,49 @@
 {
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
-    "builder": "NIXPACKS"
+    "builder": "NIXPACKS",
+    "buildCommand": "npm run build",
+    "watchPatterns": ["src/**", "prisma/**", "package.json", "package-lock.json"]
   },
   "deploy": {
-    "startCommand": "npm start",
-    "healthcheckPath": "/",
-    "healthcheckTimeout": 100,
+    "numReplicas": 1,
+    "sleepApplication": false,
     "restartPolicyType": "ON_FAILURE",
-    "restartPolicyMaxRetries": 10
+    "restartPolicyMaxRetries": 10,
+    "healthcheckPath": "/",
+    "healthcheckTimeout": 300,
+    "startCommand": "npm start"
+  },
+  "environments": {
+    "production": {
+      "variables": {
+        "NODE_ENV": "production",
+        "DATABASE_URL": "${{Postgres.DATABASE_URL}}",
+        "PRISMA_GENERATE_SKIP_AUTOINSTALL": "true",
+        "STYTCH_PROJECT_ID": "${{STYTCH_PROJECT_ID}}",
+        "STYTCH_SECRET": "${{STYTCH_SECRET}}",
+        "NEXT_PUBLIC_STYTCH_PUBLIC_TOKEN": "${{NEXT_PUBLIC_STYTCH_PUBLIC_TOKEN}}",
+        "STYTCH_PROJECT_ENV": "${{STYTCH_PROJECT_ENV}}",
+        "R2_ACCOUNT_ID": "${{R2_ACCOUNT_ID}}",
+        "R2_ACCESS_KEY_ID": "${{R2_ACCESS_KEY_ID}}",
+        "R2_SECRET_ACCESS_KEY": "${{R2_SECRET_ACCESS_KEY}}",
+        "R2_BUCKET_NAME": "${{R2_BUCKET_NAME}}",
+        "R2_BUCKET_PATH": "${{R2_BUCKET_PATH}}",
+        "NEXT_PUBLIC_R2_PUBLIC_URL": "${{NEXT_PUBLIC_R2_PUBLIC_URL}}",
+        "PUSHER_APP_ID": "${{PUSHER_APP_ID}}",
+        "PUSHER_SECRET": "${{PUSHER_SECRET}}",
+        "NEXT_PUBLIC_PUSHER_KEY": "${{NEXT_PUBLIC_PUSHER_KEY}}",
+        "NEXT_PUBLIC_PUSHER_CLUSTER": "${{NEXT_PUBLIC_PUSHER_CLUSTER}}",
+        "JWT_SECRET": "${{JWT_SECRET}}",
+        "NEXT_PUBLIC_BASE_URL": "${{NEXT_PUBLIC_BASE_URL}}"
+      }
+    },
+    "development": {
+      "variables": {
+        "NODE_ENV": "development",
+        "DATABASE_URL": "${{Postgres.DATABASE_URL}}",
+        "PRISMA_GENERATE_SKIP_AUTOINSTALL": "true"
+      }
+    }
   }
 }

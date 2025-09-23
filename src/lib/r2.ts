@@ -6,7 +6,8 @@ import { nanoid } from 'nanoid';
 const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID || '';
 const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID || '';
 const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY || '';
-const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME || 'nine-nine-nine';
+const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME || 'the-marina-tech-company';
+const R2_BUCKET_PATH = process.env.R2_BUCKET_PATH || 'nine-nine-nine';
 const R2_PUBLIC_URL = process.env.NEXT_PUBLIC_R2_PUBLIC_URL || '';
 
 const r2Client = new S3Client({
@@ -24,7 +25,7 @@ export async function generateUploadUrl(
   mediaType: 'photo' | 'video'
 ): Promise<{ uploadUrl: string; key: string; publicUrl: string }> {
   const extension = fileType.split('/')[1] || 'jpg';
-  const key = `events/${eventId}/${mediaType}s/${nanoid()}.${extension}`;
+  const key = `${R2_BUCKET_PATH}/events/${eventId}/${mediaType}s/${nanoid()}.${extension}`;
   
   const command = new PutObjectCommand({
     Bucket: R2_BUCKET_NAME,
@@ -44,7 +45,7 @@ export async function uploadToR2(
   mediaType: 'photo' | 'video'
 ): Promise<{ key: string; publicUrl: string }> {
   const extension = file.name.split('.').pop() || 'jpg';
-  const key = `events/${eventId}/${mediaType}s/${nanoid()}.${extension}`;
+  const key = `${R2_BUCKET_PATH}/events/${eventId}/${mediaType}s/${nanoid()}.${extension}`;
   
   const buffer = await file.arrayBuffer();
   

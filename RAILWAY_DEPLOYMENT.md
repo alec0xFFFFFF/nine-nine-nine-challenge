@@ -14,6 +14,12 @@ railway init
 - Name it "nine-nine-nine-challenge" or similar
 - Select your team/account
 
+## Step 2.5: Add PostgreSQL Database
+```bash
+railway add postgresql
+```
+This will provision a PostgreSQL database and automatically set DATABASE_URL environment variable.
+
 ## Step 3: Set Environment Variables
 Run these commands to set up your environment variables:
 
@@ -24,18 +30,19 @@ railway variables set JWT_SECRET="your-super-secure-jwt-secret-key-change-this-i
 # Base URL (we'll update this after getting the Railway URL)
 railway variables set NEXT_PUBLIC_BASE_URL="https://nine-nine-nine-challenge-production.up.railway.app"
 
-# Stytch SMS Authentication
-railway variables set STYTCH_PROJECT_ID="your-stytch-project-id"
-railway variables set STYTCH_SECRET="your-stytch-secret"
-railway variables set NEXT_PUBLIC_STYTCH_PUBLIC_TOKEN="your-stytch-public-token"
-railway variables set STYTCH_PROJECT_ENV="test"
+# Stytch SMS Authentication (Live credentials)
+railway variables set STYTCH_PROJECT_ID="project-live-7c65e19a-2a72-4557-8821-0c9a30e05f39"
+railway variables set STYTCH_SECRET="your-stytch-secret-from-dashboard"
+railway variables set NEXT_PUBLIC_STYTCH_PUBLIC_TOKEN="public-token-live-3db4577c-26a4-4e70-ba79-dfee03bcbae0"
+railway variables set STYTCH_PROJECT_ENV="live"
 
 # Cloudflare R2 Storage
-railway variables set R2_ACCOUNT_ID="your-r2-account-id"
+railway variables set R2_ACCOUNT_ID="your-cloudflare-account-id"
 railway variables set R2_ACCESS_KEY_ID="your-r2-access-key-id"
 railway variables set R2_SECRET_ACCESS_KEY="your-r2-secret-access-key"
-railway variables set R2_BUCKET_NAME="nine-nine-nine"
-railway variables set NEXT_PUBLIC_R2_PUBLIC_URL="https://your-bucket.your-account-id.r2.cloudflarestorage.com"
+railway variables set R2_BUCKET_NAME="the-marina-tech-company"
+railway variables set R2_BUCKET_PATH="nine-nine-nine"
+railway variables set NEXT_PUBLIC_R2_PUBLIC_URL="https://images.themarinatechcompany.com"
 
 # Optional: Pusher (for real-time updates)
 railway variables set PUSHER_APP_ID="your-pusher-app-id"
@@ -98,8 +105,8 @@ railway open
 # View logs
 railway logs -f
 
-# Connect to database (if you add one later)
-railway connect
+# Connect to PostgreSQL database
+railway connect postgresql
 ```
 
 ## Troubleshooting
@@ -126,7 +133,7 @@ railway rollback
 - [ ] R2 bucket created and configured
 - [ ] Custom domain added (if desired)
 - [ ] SSL certificate working
-- [ ] Database working (SQLite file-based)
+- [ ] Database working (PostgreSQL)
 - [ ] Test SMS authentication
 - [ ] Test file uploads
 - [ ] Test event creation and joining

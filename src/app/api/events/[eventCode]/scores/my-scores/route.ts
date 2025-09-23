@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getUser } from '@/lib/auth-v2';
-import { joinEvent, getEventByCode } from '@/lib/db-prisma';
+import { getParticipantScores, getEventByCode } from '@/lib/db-prisma';
 
-export async function POST(
+export async function GET(
   request: Request,
   { params }: { params: Promise<{ eventCode: string }> }
 ) {
@@ -26,17 +26,12 @@ export async function POST(
       );
     }
     
-    const joined = await joinEvent(user.userId, eventCode);
+    const scores = await getParticipantScores(user.userId, event.id);
     
-    return NextResponse.json({ 
-      success: true,
-      joined,
-      event
-    });
-  } catch (error: any) {
-    console.error('Join event error:', error);
+    return NextResponse.json({ scores });
+  } catch (error) {
     return NextResponse.json(
-      { error: 'Failed to join event' },
+      { error: 'Failed to fetch scores' },
       { status: 500 }
     );
   }

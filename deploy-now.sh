@@ -14,6 +14,15 @@ echo ""
 echo "✅ Project initialized!"
 echo ""
 
+# Step 1.5: Add PostgreSQL database
+echo "🗄️  Step 1.5: Adding PostgreSQL database..."
+echo ""
+railway add postgresql
+
+echo ""
+echo "✅ PostgreSQL database added!"
+echo ""
+
 # Step 2: Set up critical environment variables
 echo "⚙️  Step 2: Setting up environment variables..."
 echo ""
@@ -27,18 +36,19 @@ railway variables set JWT_SECRET="$JWT_SECRET"
 echo "Setting temporary NEXT_PUBLIC_BASE_URL..."
 railway variables set NEXT_PUBLIC_BASE_URL="https://nine-nine-nine-challenge-production.up.railway.app"
 
-# Set defaults for development
-echo "Setting development defaults for services..."
-railway variables set STYTCH_PROJECT_ID="temp-project-id"
-railway variables set STYTCH_SECRET="temp-secret"
-railway variables set NEXT_PUBLIC_STYTCH_PUBLIC_TOKEN="temp-public-token"
-railway variables set STYTCH_PROJECT_ENV="test"
+# Set Stytch live credentials
+echo "Setting Stytch live credentials..."
+railway variables set STYTCH_PROJECT_ID="project-live-7c65e19a-2a72-4557-8821-0c9a30e05f39"
+railway variables set STYTCH_SECRET="REPLACE_WITH_YOUR_SECRET_FROM_DASHBOARD"
+railway variables set NEXT_PUBLIC_STYTCH_PUBLIC_TOKEN="public-token-live-3db4577c-26a4-4e70-ba79-dfee03bcbae0"
+railway variables set STYTCH_PROJECT_ENV="live"
 
-railway variables set R2_ACCOUNT_ID="temp-account-id"
-railway variables set R2_ACCESS_KEY_ID="temp-access-key"
-railway variables set R2_SECRET_ACCESS_KEY="temp-secret-key"
-railway variables set R2_BUCKET_NAME="nine-nine-nine"
-railway variables set NEXT_PUBLIC_R2_PUBLIC_URL="https://temp.r2.cloudflarestorage.com"
+railway variables set R2_ACCOUNT_ID="REPLACE_WITH_YOUR_CLOUDFLARE_ACCOUNT_ID"
+railway variables set R2_ACCESS_KEY_ID="REPLACE_WITH_YOUR_R2_ACCESS_KEY"
+railway variables set R2_SECRET_ACCESS_KEY="REPLACE_WITH_YOUR_R2_SECRET_KEY"
+railway variables set R2_BUCKET_NAME="the-marina-tech-company"
+railway variables set R2_BUCKET_PATH="nine-nine-nine"
+railway variables set NEXT_PUBLIC_R2_PUBLIC_URL="https://images.themarinatechcompany.com"
 
 railway variables set PUSHER_APP_ID="temp-app-id"
 railway variables set PUSHER_SECRET="temp-secret"

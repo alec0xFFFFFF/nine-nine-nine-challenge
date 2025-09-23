@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { KUDOS_TYPES } from '@/lib/db-v2';
+import { KUDOS_TYPES } from '@/lib/db-prisma';
 
 interface KudosButtonProps {
   eventCode: string;

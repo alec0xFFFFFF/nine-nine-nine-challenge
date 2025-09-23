@@ -1,9 +1,13 @@
 import { NextResponse } from 'next/server';
-import { getUser } from '@/lib/auth';
-import { updateHoleScore, getOrCreateCompetition } from '@/lib/db';
+import { getUser } from '@/lib/auth-v2';
+import { updateEventHoleScore, getEventByCode } from '@/lib/db-prisma';
 import { pusherServer } from '@/lib/pusher';
 
-export async function POST(request: Request) {
+export async function POST(
+  request: Request,
+  { params }: { params: Promise<{ eventCode: string }> }
+) {
+  const { eventCode } = await params;
   try {
     const user = await getUser();
     
@@ -23,11 +27,18 @@ export async function POST(request: Request) {
       );
     }
     
-    const competition = await getOrCreateCompetition();
+    const event = await getEventByCode(eventCode);
     
-    await updateHoleScore(
-      user.id,
-      competition.id,
+    if (!event) {
+      return NextResponse.json(
+        { error: 'Event not found' },
+        { status: 404 }
+      );
+    }
+    
+    await updateEventHoleScore(
+      user.userId,
+      event.id,
       holeNumber,
       strokes,
       hotDogs || 0,
@@ -36,10 +47,10 @@ export async function POST(request: Request) {
     );
     
     await pusherServer.trigger(
-      `competition-${competition.id}`,
+      `competition-${event.id}`,
       'score-update',
       {
-        username: user.username,
+        username: user.displayName || user.phoneNumber,
         holeNumber,
         strokes,
         hotDogs,

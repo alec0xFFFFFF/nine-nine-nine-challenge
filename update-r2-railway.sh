@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo "🗂️  Updating Railway with R2 Configuration"
+echo "========================================"
+echo ""
+
+# Set R2 configuration
+echo "Setting R2 bucket configuration..."
+railway variables set R2_BUCKET_NAME="the-marina-tech-company"
+railway variables set R2_BUCKET_PATH="nine-nine-nine"
+railway variables set NEXT_PUBLIC_R2_PUBLIC_URL="https://images.themarinatechcompany.com"
+
+echo ""
+echo "⚠️  STILL NEEDED: Create R2 API Token in Cloudflare"
+echo ""
+echo "📋 Steps to complete R2 setup:"
+echo "1. Go to Cloudflare Dashboard → R2 → Manage R2 API Tokens"
+echo "2. Create API Token with Object Read & Write permissions"
+echo "3. Copy your Cloudflare Account ID from dashboard"
+echo "4. Run these commands with your actual values:"
+echo ""
+echo "   railway variables set R2_ACCOUNT_ID=\"your-account-id\""
+echo "   railway variables set R2_ACCESS_KEY_ID=\"your-access-key\""
+echo "   railway variables set R2_SECRET_ACCESS_KEY=\"your-secret-key\""
+echo ""
+echo "📁 R2 Configuration:"
+echo "Bucket: the-marina-tech-company"
+echo "Path: nine-nine-nine/"
+echo "Custom Domain: images.themarinatechcompany.com"
+echo "S3 Endpoint: https://50fb30c3a30ab2fc0166f6fed6d58d4c.r2.cloudflarestorage.com"
+echo ""
+echo "✅ Bucket settings updated!"
+echo "⏳ Waiting for you to create API tokens..."

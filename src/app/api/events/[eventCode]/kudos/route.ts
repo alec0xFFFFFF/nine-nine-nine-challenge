@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { giveKudos, getEventByCode, getEventTopKudos } from '@/lib/db-v2';
+import { giveKudos, getEventByCode, getEventTopKudos } from '@/lib/db-prisma';
 
 export async function POST(
   request: Request,
