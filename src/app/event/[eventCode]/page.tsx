@@ -86,35 +86,49 @@ export default function EventPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-yellow-50">
-      <div className="bg-white shadow-md p-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div>
-              <h1 className="text-2xl font-bold text-blue-700">{event.name}</h1>
-              <div className="text-sm text-gray-800">
-                {event.location && <span>{event.location} • </span>}
-                {new Date(event.event_date).toLocaleDateString()}
+    <div className="min-h-screen bg-gray-50">
+      {/* Classic header with Augusta green */}
+      <div className="bg-white border-b-4 border-green-700 shadow-sm">
+        <div className="max-w-6xl mx-auto px-6 py-8">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-6">
+            <div className="flex-1">
+              <h1 className="text-3xl font-serif font-bold text-green-800 mb-2">{event.name}</h1>
+              <div className="flex items-center gap-4 text-sm text-gray-700 font-medium">
+                {event.location && (
+                  <div className="flex items-center gap-1">
+                    <span className="w-2 h-2 bg-green-700 rounded-full"></span>
+                    <span>{event.location}</span>
+                  </div>
+                )}
+                <div className="flex items-center gap-1">
+                  <span className="w-2 h-2 bg-green-700 rounded-full"></span>
+                  <span>{new Date(event.event_date).toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}</span>
+                </div>
               </div>
               {event.description && (
-                <p className="text-gray-900 mt-1">{event.description}</p>
+                <p className="text-gray-800 mt-3 text-base leading-relaxed">{event.description}</p>
               )}
             </div>
             
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-3">
               {!user ? (
                 <button
                   onClick={handleJoinEvent}
-                  className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-semibold"
+                  className="px-8 py-3 bg-green-700 text-white font-semibold border-2 border-green-700 hover:bg-green-800 hover:border-green-800 transition-all duration-200 shadow-sm"
                 >
-                  🏌️ Join Challenge
+                  JOIN CHALLENGE
                 </button>
               ) : (
                 <a
                   href={`/event/${eventCode}/play`}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+                  className="px-8 py-3 bg-white text-green-700 font-semibold border-2 border-green-700 hover:bg-green-50 transition-all duration-200 shadow-sm text-center"
                 >
-                  📊 My Scorecard
+                  MY SCORECARD
                 </a>
               )}
             </div>

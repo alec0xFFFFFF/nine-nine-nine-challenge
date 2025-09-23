@@ -44,51 +44,66 @@ export default function EventJoinCode({ joinCode, eventCode }: EventJoinCodeProp
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <h3 className="text-xl font-bold text-gray-900 mb-4 text-center">
-        📱 Quick Join
-      </h3>
+    <div className="bg-white border border-gray-300 shadow-sm">
+      {/* Header */}
+      <div className="border-b-2 border-green-700 bg-green-50 px-6 py-4">
+        <h3 className="text-xl font-serif font-bold text-green-800 text-center">
+          INVITE PARTICIPANTS
+        </h3>
+      </div>
       
-      <div className="grid md:grid-cols-2 gap-6">
-        {/* QR Code */}
-        <div className="text-center">
-          <p className="text-sm text-gray-700 mb-3">Scan to join event</p>
-          {qrCodeDataUrl && (
-            <div className="inline-block p-4 bg-white rounded-lg border-2 border-gray-200">
-              <img 
-                src={qrCodeDataUrl} 
-                alt="Event QR Code" 
-                className="w-32 h-32 mx-auto"
-              />
-            </div>
-          )}
-        </div>
+      <div className="p-6">
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* QR Code */}
+          <div className="text-center">
+            <h4 className="text-sm font-medium text-gray-700 uppercase tracking-wide mb-4">
+              Scan QR Code
+            </h4>
+            {qrCodeDataUrl && (
+              <div className="inline-block p-6 bg-white border-2 border-gray-300">
+                <img 
+                  src={qrCodeDataUrl} 
+                  alt="Event QR Code" 
+                  className="w-36 h-36 mx-auto"
+                />
+              </div>
+            )}
+            <p className="text-xs text-gray-600 mt-3 uppercase tracking-wide">
+              Point camera at code to join
+            </p>
+          </div>
 
-        {/* Join Code */}
-        <div className="text-center">
-          <p className="text-sm text-gray-700 mb-3">Or use join code</p>
-          <div className="bg-gray-50 rounded-lg p-4 border-2 border-gray-200">
-            <div className="text-3xl font-bold text-gray-900 tracking-widest mb-2">
-              {joinCode}
+          {/* Join Code */}
+          <div className="text-center">
+            <h4 className="text-sm font-medium text-gray-700 uppercase tracking-wide mb-4">
+              Join Code
+            </h4>
+            <div className="bg-gray-50 border-2 border-gray-300 p-6">
+              <div className="text-4xl font-mono font-bold text-green-800 tracking-widest mb-4">
+                {joinCode}
+              </div>
+              <button
+                onClick={copyJoinCode}
+                className={`px-6 py-2 font-semibold border-2 transition-all duration-200 ${
+                  copied 
+                    ? 'bg-green-700 text-white border-green-700' 
+                    : 'bg-white text-green-700 border-green-700 hover:bg-green-50'
+                }`}
+              >
+                {copied ? 'COPIED!' : 'COPY CODE'}
+              </button>
             </div>
-            <button
-              onClick={copyJoinCode}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                copied 
-                  ? 'bg-green-600 text-white' 
-                  : 'bg-blue-600 text-white hover:bg-blue-700'
-              }`}
-            >
-              {copied ? '✓ Copied!' : '📋 Copy Code'}
-            </button>
+            <p className="text-xs text-gray-600 mt-3 uppercase tracking-wide">
+              Share this 6-digit code
+            </p>
           </div>
         </div>
-      </div>
 
-      <div className="mt-4 text-center">
-        <p className="text-xs text-gray-600">
-          Share this code or QR code with others to let them join your event
-        </p>
+        <div className="mt-6 text-center border-t border-gray-200 pt-4">
+          <p className="text-xs text-gray-600 uppercase tracking-wide">
+            Participants can scan the QR code or enter the join code to access your event
+          </p>
+        </div>
       </div>
     </div>
   );

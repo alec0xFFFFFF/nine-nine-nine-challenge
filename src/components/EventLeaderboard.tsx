@@ -80,44 +80,53 @@ export default function EventLeaderboard({ eventCode, showKudos = true }: EventL
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold">Live Leaderboard</h2>
-          {event && (
-            <span className="text-sm text-gray-500">{event.name}</span>
-          )}
+    <div className="max-w-5xl mx-auto px-6">
+      <div className="bg-white border border-gray-300 shadow-sm">
+        {/* Classic header */}
+        <div className="border-b-2 border-green-700 bg-green-50 px-6 py-4">
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-serif font-bold text-green-800">LEADERBOARD</h2>
+            {event && (
+              <span className="text-sm font-medium text-green-700 uppercase tracking-wide">{event.name}</span>
+            )}
+          </div>
         </div>
 
         {lastUpdate && (
-          <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4 animate-pulse">
-            <span className="text-sm">
+          <div className="bg-green-50 border-l-4 border-green-700 px-6 py-3">
+            <span className="text-sm font-medium text-green-800">
               <strong>{lastUpdate.username}</strong> just updated Hole {lastUpdate.holeNumber}
             </span>
           </div>
         )}
 
-        <div className="space-y-4">
+        {/* Leaderboard table */}
+        <div className="divide-y divide-gray-200">
           {leaderboard.map((entry, index) => (
             <div
               key={entry.participant_id}
-              className={`border rounded-lg p-4 transition-all ${
-                index === 0 ? 'border-yellow-400 bg-yellow-50' :
-                index === 1 ? 'border-gray-400 bg-gray-50' :
-                index === 2 ? 'border-orange-400 bg-orange-50' :
-                'border-gray-200'
+              className={`px-6 py-4 transition-all hover:bg-gray-50 ${
+                index === 0 ? 'bg-green-50 border-l-4 border-green-700' :
+                index === 1 ? 'bg-gray-50 border-l-4 border-gray-400' :
+                index === 2 ? 'bg-yellow-50 border-l-4 border-yellow-600' :
+                'border-l-4 border-transparent'
               }`}
             >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl font-bold text-gray-800">
-                    {getPlaceEmoji(index + 1) || `#${index + 1}`}
-                  </span>
-                  <div>
-                    <h3 className="font-semibold text-lg text-gray-900">{getDisplayName(entry)}</h3>
-                    <div className="flex items-center gap-4 text-sm text-gray-800">
-                      <span>Score: {entry.total_score}</span>
-                      <span>⛳ {entry.total_strokes || 0}</span>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-6">
+                  {/* Position */}
+                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 border-2 border-gray-300">
+                    <span className="text-xl font-bold text-gray-700">
+                      {index + 1}
+                    </span>
+                  </div>
+                  
+                  {/* Player Info */}
+                  <div className="flex-1">
+                    <h3 className="font-serif font-bold text-xl text-gray-900 mb-1">{getDisplayName(entry)}</h3>
+                    <div className="flex items-center gap-6 text-sm font-medium text-gray-600">
+                      <span className="bg-gray-100 px-2 py-1 rounded">TOTAL: {entry.total_score}</span>
+                      <span>⛳ {entry.total_strokes || 0} strokes</span>
                       <span>👏 {entry.total_kudos} kudos</span>
                     </div>
                   </div>
@@ -132,30 +141,37 @@ export default function EventLeaderboard({ eventCode, showKudos = true }: EventL
                 )}
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span>🌭 Hot Dogs</span>
-                    <span className="font-semibold">{entry.total_hot_dogs || 0}/9</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className="bg-orange-500 h-2 rounded-full transition-all"
-                      style={{ width: `${calculateProgress(entry.total_hot_dogs || 0, 9)}%` }}
-                    />
+              {/* Progress indicators */}
+              <div className="mt-4 grid grid-cols-2 gap-6">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">🌭</span>
+                  <div className="flex-1">
+                    <div className="flex justify-between text-xs font-medium text-gray-600 mb-1">
+                      <span>HOT DOGS</span>
+                      <span>{entry.total_hot_dogs || 0}/9</span>
+                    </div>
+                    <div className="w-full bg-gray-200 h-1.5 rounded-full">
+                      <div
+                        className="bg-orange-600 h-1.5 rounded-full transition-all"
+                        style={{ width: `${calculateProgress(entry.total_hot_dogs || 0, 9)}%` }}
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div>
-                  <div className="flex justify-between text-sm mb-1">
-                    <span>🍺 Beers</span>
-                    <span className="font-semibold">{entry.total_beers || 0}/9</span>
-                  </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className="bg-yellow-500 h-2 rounded-full transition-all"
-                      style={{ width: `${calculateProgress(entry.total_beers || 0, 9)}%` }}
-                    />
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">🍺</span>
+                  <div className="flex-1">
+                    <div className="flex justify-between text-xs font-medium text-gray-600 mb-1">
+                      <span>BEERS</span>
+                      <span>{entry.total_beers || 0}/9</span>
+                    </div>
+                    <div className="w-full bg-gray-200 h-1.5 rounded-full">
+                      <div
+                        className="bg-yellow-600 h-1.5 rounded-full transition-all"
+                        style={{ width: `${calculateProgress(entry.total_beers || 0, 9)}%` }}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
