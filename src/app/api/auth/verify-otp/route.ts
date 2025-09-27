@@ -4,6 +4,7 @@ import { stytchConfig } from '@/lib/stytch';
 import { createOrUpdateUser } from '@/lib/db-prisma';
 import jwt from 'jsonwebtoken';
 import { validateAndFormatUSPhone, rateLimiter } from '@/lib/phone-validation';
+import { sessionStore } from '@/lib/session-store';
 
 // GET handler for checking auth status
 export async function GET() {
@@ -77,8 +78,25 @@ export async function POST(request: Request) {
       );
     }
     
+    // Use the correct Stytch API endpoint for the environment
+    const apiUrl = stytchConfig.env === 'live'
+      ? 'https://api.stytch.com'
+      : 'https://test.stytch.com';
+
+    // Retrieve the phone_id from the session store
+    const otpSession = sessionStore.retrieve(e164Phone);
+    if (!otpSession) {
+      return NextResponse.json(
+        { error: 'OTP session expired. Please request a new code.' },
+        { status: 400 }
+      );
+    }
+
+    console.log('Verifying OTP for:', e164Phone);
+    console.log('Using phone_id:', otpSession.phoneId);
+
     const response = await fetch(
-      `https://test.stytch.com/v1/otps/authenticate`,
+      `${apiUrl}/v1/otps/authenticate`,
       {
         method: 'POST',
         headers: {
@@ -88,8 +106,9 @@ export async function POST(request: Request) {
           ).toString('base64')}`,
         },
         body: JSON.stringify({
-          method_id: e164Phone,
-          code,
+          method_id: otpSession.phoneId, // Use the correct phone_id from send response
+          code: code,
+          session_duration_minutes: 43200 // 30 days
         }),
       }
     );
@@ -97,23 +116,63 @@ export async function POST(request: Request) {
     const data = await response.json();
     
     if (!response.ok) {
+      console.error('Stytch verify error:', {
+        status: response.status,
+        error: data.error_message,
+        error_type: data.error_type,
+        error_url: data.error_url
+      });
+
+      // Handle specific authentication errors
+      if (data.error_type === 'otp_not_found' || data.error_type === 'invalid_code') {
+        return NextResponse.json(
+          { error: 'Invalid or expired verification code. Please try again.' },
+          { status: 400 }
+        );
+      }
+
+      if (data.error_type === 'invalid_method_id') {
+        return NextResponse.json(
+          { error: 'OTP session expired. Please request a new code.' },
+          { status: 400 }
+        );
+      }
+
+      if (data.error_type === 'rate_limit_exceeded') {
+        return NextResponse.json(
+          { error: 'Too many verification attempts. Please wait before trying again.' },
+          { status: 429 }
+        );
+      }
+
       throw new Error(data.error_message || 'Invalid code');
     }
     
-    // Create or update user in our database
+    // Log successful verification
+    console.log('OTP verified successfully for:', e164Phone);
+    console.log('Stytch user_id:', data.user_id);
+    console.log('Session created:', !!data.session_token);
+
+    // Clean up the session after successful verification
+    sessionStore.remove(e164Phone);
+
+    // Create or update user in our database using Stytch user data
+    const stytchUser = data.user || { user_id: data.user_id };
     const user = await createOrUpdateUser(
       e164Phone,
-      data.user_id,
+      stytchUser.user_id,
       displayName
     );
     
-    // Create JWT token
+    // Create JWT token with Stytch session info
     const token = jwt.sign(
-      { 
+      {
         userId: user.id,
         phoneNumber: user.phoneNumber,
         displayName: user.displayName,
-        stytchUserId: data.user_id
+        stytchUserId: stytchUser.user_id,
+        stytchSessionToken: data.session_token, // Store Stytch session for future use
+        methodId: data.method_id
       },
       process.env.JWT_SECRET || 'your-secret-key',
       { expiresIn: '30d' }

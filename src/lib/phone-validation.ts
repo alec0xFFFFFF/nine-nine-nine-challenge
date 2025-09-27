@@ -13,6 +13,11 @@ const BLOCKED_AREA_CODES = new Set([
 // Valid US area codes (NPA) - must be 2-9 for first digit, 0-9 for second, 0-9 for third
 // But not X11 (N11 codes like 411, 511, 611, 711, 811, 911)
 function isValidAreaCode(areaCode: string): boolean {
+  // Special handling for 555 - only allow for testing (555-0100 to 555-0199)
+  if (areaCode === '555') {
+    return false; // Block 555 for production use
+  }
+
   if (BLOCKED_AREA_CODES.has(areaCode)) {
     return false;
   }

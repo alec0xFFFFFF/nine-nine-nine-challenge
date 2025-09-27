@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { stytchConfig } from '@/lib/stytch';
 import { validateAndFormatUSPhone, rateLimiter } from '@/lib/phone-validation';
+import { sessionStore } from '@/lib/session-store';
 import { headers } from 'next/headers';
 
 export async function POST(request: Request) {
@@ -52,10 +53,17 @@ export async function POST(request: Request) {
     }
 
     console.log('Sending OTP to US number:', e164Phone);
-    console.log('Client IP:', clientIp);
+    console.log('Stytch Project ID:', stytchConfig.projectId ? 'configured' : 'missing');
+    console.log('Stytch Environment:', stytchConfig.env);
 
+    // Use the correct Stytch API endpoint for the environment
+    const apiUrl = stytchConfig.env === 'live'
+      ? 'https://api.stytch.com'
+      : 'https://test.stytch.com';
+
+    // Use the login_or_create endpoint to handle both new and existing users
     const response = await fetch(
-      `https://test.stytch.com/v1/otps/sms/send`,
+      `${apiUrl}/v1/otps/sms/login_or_create`,
       {
         method: 'POST',
         headers: {
@@ -66,6 +74,7 @@ export async function POST(request: Request) {
         },
         body: JSON.stringify({
           phone_number: e164Phone,
+          expiration_minutes: 10
         }),
       }
     );
@@ -77,15 +86,47 @@ export async function POST(request: Request) {
         status: response.status,
         error: data.error_message,
         error_type: data.error_type,
-        error_url: data.error_url
+        error_url: data.error_url,
+        projectId: stytchConfig.projectId ? 'set' : 'missing',
+        env: stytchConfig.env
       });
+
+      // Handle specific Stytch error types
+      if (data.error_type === 'unauthorized' || data.error_type === 'project_not_found' || !stytchConfig.projectId) {
+        return NextResponse.json(
+          { error: 'SMS service not configured. Please set up Stytch credentials in .env.local' },
+          { status: 503 }
+        );
+      }
+
+      // Handle phone number validation errors
+      if (data.error_type === 'invalid_phone_number' || data.error_type === 'invalid_phone_number_country_code') {
+        return NextResponse.json(
+          { error: 'Invalid phone number format. Please enter a valid US mobile number.' },
+          { status: 400 }
+        );
+      }
+
+      // Handle rate limiting
+      if (data.error_type === 'rate_limit_exceeded') {
+        return NextResponse.json(
+          { error: 'Too many SMS requests. Please try again later.' },
+          { status: 429 }
+        );
+      }
+
       throw new Error(data.error_message || 'Failed to send OTP');
     }
     
-    return NextResponse.json({ 
+    // Store the phone_id and user info for later verification
+    sessionStore.store(e164Phone, data.phone_id, data.user_id);
+
+    return NextResponse.json({
       success: true,
       phone_id: data.phone_id,
-      masked_phone: e164Phone.slice(-4)
+      user_id: data.user_id,
+      user_created: data.user_created, // Indicates if this is a new user
+      masked_phone: validation.formattedNumber
     });
   } catch (error: any) {
     console.error('OTP send error:', error);

@@ -16,6 +16,7 @@ export default function PhoneAuth({ redirectTo = '/dashboard', eventCode }: Phon
   const [code, setCode] = useState('');
   const [displayName, setDisplayName] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isNewUser, setIsNewUser] = useState(false);
   const router = useRouter();
 
   const formatPhoneNumber = (value: string) => {
