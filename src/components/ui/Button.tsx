@@ -36,11 +36,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     if (asChild) {
       // When used with asChild, apply classes to the child element
-      const childElement = children as React.ReactElement;
+      const childElement = children as React.ReactElement<any>;
       return React.cloneElement(childElement, {
-        className: `${classes} ${childElement.props.className || ''}`,
+        ...props,
+        className: `${classes} ${childElement.props?.className || ''}`.trim(),
         ref,
-        ...props
       });
     }
 
