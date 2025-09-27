@@ -102,8 +102,8 @@ export default function EventScorecard({ eventCode }: EventScorecardProps) {
     <div className="max-w-2xl mx-auto p-6">
       <div className="bg-white border border-gray-300 shadow-sm">
         {/* Classic scorecard header */}
-        <div className="border-b-2 border-green-700 bg-green-50 px-6 py-4">
-          <h2 className="text-2xl font-serif font-bold text-green-800 text-center">SCORECARD</h2>
+        <div className="border-b-2 border-primary bg-secondary px-6 py-4">
+          <h2 className="text-2xl font-serif font-bold text-primary text-center">SCORECARD</h2>
         </div>
         
         {/* Totals section */}
@@ -133,8 +133,8 @@ export default function EventScorecard({ eventCode }: EventScorecardProps) {
                 onClick={() => setCurrentHole(hole)}
                 className={`aspect-square flex items-center justify-center font-bold border-2 transition-colors ${
                   currentHole === hole
-                    ? 'bg-green-700 text-white border-green-700'
-                    : 'bg-white text-gray-900 border-gray-300 hover:border-green-300 hover:bg-green-50'
+                    ? 'bg-primary text-primary-foreground border-primary'
+                    : 'bg-white text-gray-900 border-gray-300 hover:border-primary/30 hover:bg-secondary'
                 }`}
               >
                 {hole}
@@ -146,7 +146,7 @@ export default function EventScorecard({ eventCode }: EventScorecardProps) {
         {/* Current hole details */}
         <div className="p-6 space-y-6">
           <div className="text-center border-b border-gray-200 pb-4">
-            <h3 className="text-2xl font-serif font-bold text-green-800">HOLE {currentHole}</h3>
+            <h3 className="text-2xl font-serif font-bold text-primary">HOLE {currentHole}</h3>
           </div>
           
           {/* Strokes input */}
@@ -158,7 +158,7 @@ export default function EventScorecard({ eventCode }: EventScorecardProps) {
               max="20"
               value={currentScore.strokes || ''}
               onChange={(e) => updateScore(currentHole, 'strokes', e.target.value ? parseInt(e.target.value) : null)}
-              className="w-full p-3 border-2 border-gray-300 focus:border-green-700 focus:outline-none text-lg font-semibold text-center"
+              className="w-full p-3 border-2 border-gray-300 focus:border-primary focus:outline-none text-lg font-semibold text-center"
               placeholder="0"
               disabled={loading}
             />
@@ -213,7 +213,7 @@ export default function EventScorecard({ eventCode }: EventScorecardProps) {
               <select
                 value={currentScore.beer_type || ''}
                 onChange={(e) => updateScore(currentHole, 'beer_type', e.target.value)}
-                className="w-full p-3 border-2 border-gray-300 focus:border-green-700 focus:outline-none text-base"
+                className="w-full p-3 border-2 border-gray-300 focus:border-primary focus:outline-none text-base"
                 disabled={loading}
               >
                 <option value="">Select beer type</option>

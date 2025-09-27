@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  /* Light theme colors */
+  /* Masters Tournament Color Palette - Darker, Classier Green */
   --background: #ffffff;
   --foreground: #171717;
-  --card: #ffffff;
+  --card: #fefdf8;
   --card-foreground: #171717;
   --popover: #ffffff;
   --popover-foreground: #171717;
   --primary: #166534;
   --primary-foreground: #ffffff;
-  --secondary: #f3f4f6;
+  --secondary: #f8f6f0;
   --secondary-foreground: #374151;
   --muted: #f9fafb;
   --muted-foreground: #6b7280;
@@ -18,33 +18,10 @@
   --accent-foreground: #374151;
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
-  --border: #e5e7eb;
+  --border: #166534;
   --input: #e5e7eb;
   --ring: #166534;
-  --radius: 0.5rem;
-}
-
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --card: #1f2937;
-  --card-foreground: #f9fafb;
-  --popover: #1f2937;
-  --popover-foreground: #f9fafb;
-  --primary: #22c55e;
-  --primary-foreground: #0a0a0a;
-  --secondary: #374151;
-  --secondary-foreground: #f9fafb;
-  --muted: #374151;
-  --muted-foreground: #9ca3af;
-  --accent: #374151;
-  --accent-foreground: #f9fafb;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: #4b5563;
-  --input: #4b5563;
-  --ring: #22c55e;
+  --radius: 0;
 }
 
 @theme inline {
@@ -72,35 +49,10 @@
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --card: #1f2937;
-    --card-foreground: #f9fafb;
-    --popover: #1f2937;
-    --popover-foreground: #f9fafb;
-    --primary: #22c55e;
-    --primary-foreground: #0a0a0a;
-    --secondary: #374151;
-    --secondary-foreground: #f9fafb;
-    --muted: #374151;
-    --muted-foreground: #9ca3af;
-    --accent: #374151;
-    --accent-foreground: #f9fafb;
-    --destructive: #ef4444;
-    --destructive-foreground: #ffffff;
-    --border: #4b5563;
-    --input: #4b5563;
-    --ring: #22c55e;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  font-family: var(--font-serif);
 }
 
 * {

@@ -81,20 +81,20 @@ export default function EventLeaderboard({ eventCode, showKudos = true }: EventL
 
   return (
     <div className="max-w-5xl mx-auto px-6">
-      <div className="bg-white border border-gray-300 shadow-sm">
+      <div className="bg-white border border-gray-300 shadow-md">
         {/* Classic header */}
-        <div className="border-b-2 border-green-700 bg-green-50 px-6 py-4">
+        <div className="border-b-2 border-primary bg-secondary px-6 py-4">
           <div className="flex justify-between items-center">
-            <h2 className="text-2xl font-serif font-bold text-green-800">LEADERBOARD</h2>
+            <h2 className="text-2xl font-serif font-bold text-primary">LEADERBOARD</h2>
             {event && (
-              <span className="text-sm font-medium text-green-700 uppercase tracking-wide">{event.name}</span>
+              <span className="text-sm font-medium text-primary uppercase tracking-wide">{event.name}</span>
             )}
           </div>
         </div>
 
         {lastUpdate && (
-          <div className="bg-green-50 border-l-4 border-green-700 px-6 py-3">
-            <span className="text-sm font-medium text-green-800">
+          <div className="bg-secondary border-l-4 border-primary px-6 py-3">
+            <span className="text-sm font-medium text-primary">
               <strong>{lastUpdate.username}</strong> just updated Hole {lastUpdate.holeNumber}
             </span>
           </div>
@@ -106,7 +106,7 @@ export default function EventLeaderboard({ eventCode, showKudos = true }: EventL
             <div
               key={entry.participant_id}
               className={`px-6 py-4 transition-all hover:bg-gray-50 ${
-                index === 0 ? 'bg-green-50 border-l-4 border-green-700' :
+                index === 0 ? 'bg-secondary border-l-4 border-primary' :
                 index === 1 ? 'bg-gray-50 border-l-4 border-gray-400' :
                 index === 2 ? 'bg-yellow-50 border-l-4 border-yellow-600' :
                 'border-l-4 border-transparent'
@@ -115,7 +115,7 @@ export default function EventLeaderboard({ eventCode, showKudos = true }: EventL
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-6">
                   {/* Position */}
-                  <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 border-2 border-gray-300">
+                  <div className="flex items-center justify-center w-12 h-12  bg-gray-100 border-2 border-gray-300">
                     <span className="text-xl font-bold text-gray-900">
                       {index + 1}
                     </span>
@@ -125,7 +125,7 @@ export default function EventLeaderboard({ eventCode, showKudos = true }: EventL
                   <div className="flex-1">
                     <h3 className="font-serif font-bold text-xl text-gray-900 mb-1">{getDisplayName(entry)}</h3>
                     <div className="flex items-center gap-6 text-sm font-medium text-gray-800">
-                      <span className="bg-gray-100 px-2 py-1 rounded">TOTAL: {entry.total_score}</span>
+                      <span className="bg-gray-100 px-2 py-1 ">TOTAL: {entry.total_score}</span>
                       <span>⛳ {entry.total_strokes || 0} strokes</span>
                       <span>👏 {entry.total_kudos} kudos</span>
                     </div>
@@ -150,9 +150,9 @@ export default function EventLeaderboard({ eventCode, showKudos = true }: EventL
                       <span>HOT DOGS</span>
                       <span>{entry.total_hot_dogs || 0}/9</span>
                     </div>
-                    <div className="w-full bg-gray-200 h-1.5 rounded-full">
+                    <div className="w-full bg-gray-200 h-1.5 ">
                       <div
-                        className="bg-orange-600 h-1.5 rounded-full transition-all"
+                        className="bg-orange-600 h-1.5  transition-all"
                         style={{ width: `${calculateProgress(entry.total_hot_dogs || 0, 9)}%` }}
                       />
                     </div>
@@ -166,9 +166,9 @@ export default function EventLeaderboard({ eventCode, showKudos = true }: EventL
                       <span>BEERS</span>
                       <span>{entry.total_beers || 0}/9</span>
                     </div>
-                    <div className="w-full bg-gray-200 h-1.5 rounded-full">
+                    <div className="w-full bg-gray-200 h-1.5 ">
                       <div
-                        className="bg-yellow-600 h-1.5 rounded-full transition-all"
+                        className="bg-yellow-600 h-1.5  transition-all"
                         style={{ width: `${calculateProgress(entry.total_beers || 0, 9)}%` }}
                       />
                     </div>

@@ -96,19 +96,19 @@ export default function Scorecard() {
 
   return (
     <div className="max-w-md mx-auto p-4">
-      <div className="bg-white rounded-lg shadow-lg p-6">
+      <div className="bg-white  shadow-sm p-6">
         <h2 className="text-2xl font-bold text-center mb-6">My Scorecard</h2>
         
         <div className="grid grid-cols-3 gap-2 mb-6 text-center">
-          <div className="bg-blue-100 rounded p-2">
+          <div className="bg-blue-100  p-2">
             <div className="text-xs text-gray-800">Strokes</div>
             <div className="text-xl font-bold">{totals.strokes}</div>
           </div>
-          <div className="bg-orange-100 rounded p-2">
+          <div className="bg-orange-100  p-2">
             <div className="text-xs text-gray-800">Hot Dogs</div>
             <div className="text-xl font-bold">{totals.hotDogs}/9</div>
           </div>
-          <div className="bg-yellow-100 rounded p-2">
+          <div className="bg-yellow-100  p-2">
             <div className="text-xs text-gray-800">Beers</div>
             <div className="text-xl font-bold">{totals.beers}/9</div>
           </div>
@@ -120,7 +120,7 @@ export default function Scorecard() {
               <button
                 key={hole}
                 onClick={() => setCurrentHole(hole)}
-                className={`w-10 h-10 rounded-full font-bold transition-colors ${
+                className={`w-10 h-10  font-bold transition-colors ${
                   currentHole === hole
                     ? 'bg-blue-600 text-white'
                     : 'bg-gray-200 hover:bg-gray-300'
@@ -143,7 +143,7 @@ export default function Scorecard() {
               max="20"
               value={currentScore.strokes || ''}
               onChange={(e) => updateScore(currentHole, 'strokes', e.target.value ? parseInt(e.target.value) : null)}
-              className="w-full p-2 border rounded-lg"
+              className="w-full p-2 border "
               placeholder="Enter strokes"
               disabled={loading}
             />
@@ -156,7 +156,7 @@ export default function Scorecard() {
                 <button
                   key={num}
                   onClick={() => updateScore(currentHole, 'hot_dogs_consumed', num)}
-                  className={`flex-1 p-2 rounded transition-colors ${
+                  className={`flex-1 p-2  transition-colors ${
                     currentScore.hot_dogs_consumed === num
                       ? 'bg-orange-500 text-white'
                       : 'bg-gray-200 hover:bg-gray-300'
@@ -176,7 +176,7 @@ export default function Scorecard() {
                 <button
                   key={num}
                   onClick={() => updateScore(currentHole, 'beers_consumed', num)}
-                  className={`flex-1 p-2 rounded transition-colors ${
+                  className={`flex-1 p-2  transition-colors ${
                     currentScore.beers_consumed === num
                       ? 'bg-yellow-500 text-white'
                       : 'bg-gray-200 hover:bg-gray-300'
@@ -195,7 +195,7 @@ export default function Scorecard() {
               <select
                 value={currentScore.beer_type || ''}
                 onChange={(e) => updateScore(currentHole, 'beer_type', e.target.value)}
-                className="w-full p-2 border rounded-lg"
+                className="w-full p-2 border "
                 disabled={loading}
               >
                 <option value="">Select beer type</option>

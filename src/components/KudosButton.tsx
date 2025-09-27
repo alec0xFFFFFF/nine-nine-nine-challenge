@@ -60,13 +60,13 @@ export default function KudosButton({ eventCode, participantId, participantName 
     <div className="relative">
       <button
         onClick={() => setShowKudosMenu(!showKudosMenu)}
-        className="px-3 py-1 bg-yellow-400 text-black rounded-full text-sm font-semibold hover:bg-yellow-500 transition-colors"
+        className="px-3 py-1 bg-yellow-400 text-black  text-sm font-semibold hover:bg-yellow-500 transition-colors"
       >
         👏 Give Kudos
       </button>
 
       {showKudosMenu && (
-        <div className="absolute z-10 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 p-2 max-h-96 overflow-y-auto">
+        <div className="absolute z-10 mt-2 w-64 bg-white  shadow-sm border border-gray-200 p-2 max-h-96 overflow-y-auto">
           <div className="text-xs font-semibold text-gray-700 uppercase tracking-wider px-2 py-1 mb-1">
             Choose a Kudos
           </div>
@@ -76,7 +76,7 @@ export default function KudosButton({ eventCode, participantId, participantName 
                 key={key}
                 onClick={() => handleGiveKudos(key)}
                 disabled={giving || givenKudos.includes(key)}
-                className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
+                className={`w-full text-left px-3 py-2  transition-colors ${
                   givenKudos.includes(key)
                     ? 'bg-gray-100 text-gray-800 cursor-not-allowed'
                     : 'hover:bg-yellow-50 hover:border-yellow-300 border border-transparent'

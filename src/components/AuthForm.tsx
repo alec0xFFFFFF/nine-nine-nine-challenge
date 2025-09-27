@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import MastersHeader from '@/components/ui/MastersHeader';
+import AugustaBackground from '@/components/ui/AugustaBackground';
 
 export default function AuthForm() {
   const [isLogin, setIsLogin] = useState(true);
@@ -42,11 +44,16 @@ export default function AuthForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-green-500 p-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold mb-2">9/9/9 Challenge</h1>
-          <p className="text-gray-800">9 Holes ⛳ 9 Hot Dogs 🌭 9 Beers 🍺</p>
+    <div className="min-h-screen bg-gradient-to-b from-primary via-primary/90 to-primary relative flex items-center justify-center p-4">
+      <AugustaBackground variant="field" opacity={5} />
+      <div className="bg-white shadow-lg p-8 w-full max-w-md">
+        <div className="mb-8">
+          <MastersHeader
+            title="9/9/9 Challenge"
+            subtitle="9 Holes ⛳ 9 Hot Dogs 🌭 9 Beers 🍺"
+            variant="light"
+            size="md"
+          />
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -60,7 +67,7 @@ export default function AuthForm() {
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full p-3 border  focus:ring-2 focus:ring-blue-500 focus:outline-none"
               required
               minLength={3}
               disabled={loading}
@@ -73,7 +80,7 @@ export default function AuthForm() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full p-3 border  focus:ring-2 focus:ring-blue-500 focus:outline-none"
               required
               minLength={6}
               disabled={loading}
@@ -83,7 +90,7 @@ export default function AuthForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+            className="w-full bg-blue-600 text-white p-3  font-semibold hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
           >
             {loading ? 'Loading...' : (isLogin ? 'Login & Join' : 'Register & Join')}
           </button>

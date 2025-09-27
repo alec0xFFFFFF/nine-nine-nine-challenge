@@ -44,10 +44,10 @@ export default function EventJoinCode({ joinCode, eventCode }: EventJoinCodeProp
   };
 
   return (
-    <div className="bg-white border border-gray-300 shadow-sm">
+    <div className="bg-white border border-gray-300 shadow-md">
       {/* Header */}
-      <div className="border-b-2 border-green-700 bg-green-50 px-6 py-4">
-        <h3 className="text-xl font-serif font-bold text-green-800 text-center">
+      <div className="border-b-2 border-primary bg-secondary px-6 py-4">
+        <h3 className="text-xl font-serif font-bold text-primary text-center">
           INVITE PARTICIPANTS
         </h3>
       </div>
@@ -79,15 +79,15 @@ export default function EventJoinCode({ joinCode, eventCode }: EventJoinCodeProp
               Join Code
             </h4>
             <div className="bg-gray-50 border-2 border-gray-300 p-6">
-              <div className="text-4xl font-mono font-bold text-green-800 tracking-widest mb-4">
+              <div className="text-4xl font-mono font-bold text-primary tracking-widest mb-4">
                 {joinCode}
               </div>
               <button
                 onClick={copyJoinCode}
                 className={`px-6 py-2 font-semibold border-2 transition-all duration-200 ${
                   copied 
-                    ? 'bg-green-700 text-white border-green-700' 
-                    : 'bg-white text-green-700 border-green-700 hover:bg-green-50'
+                    ? 'bg-primary text-primary-foreground border-primary' 
+                    : 'bg-white text-primary border-primary hover:bg-secondary'
                 }`}
               >
                 {copied ? 'COPIED!' : 'COPY CODE'}

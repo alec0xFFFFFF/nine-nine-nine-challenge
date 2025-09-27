@@ -99,11 +99,11 @@ export default function MediaUpload({ eventCode, holeNumber, onUploadComplete }:
   };
 
   return (
-    <div className="bg-white rounded-lg shadow p-4">
+    <div className="bg-white  shadow p-4">
       {!preview ? (
         <div>
           <label className="block">
-            <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-6 cursor-pointer hover:border-blue-500 transition-colors">
+            <div className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300  p-6 cursor-pointer hover:border-blue-500 transition-colors">
               <svg className="w-12 h-12 text-gray-800 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
               </svg>
@@ -127,13 +127,13 @@ export default function MediaUpload({ eventCode, holeNumber, onUploadComplete }:
               <video
                 src={preview}
                 controls
-                className="w-full rounded-lg max-h-64 object-contain bg-black"
+                className="w-full  max-h-64 object-contain bg-black"
               />
             ) : (
               <img
                 src={preview}
                 alt="Preview"
-                className="w-full rounded-lg max-h-64 object-contain"
+                className="w-full  max-h-64 object-contain"
               />
             )}
           </div>
@@ -144,7 +144,7 @@ export default function MediaUpload({ eventCode, holeNumber, onUploadComplete }:
               type="text"
               value={caption}
               onChange={(e) => setCaption(e.target.value)}
-              className="w-full p-2 border rounded-lg"
+              className="w-full p-2 border "
               placeholder={holeNumber ? `Hole ${holeNumber} action!` : "Living my best 9/9/9 life!"}
               disabled={uploading}
             />
@@ -154,14 +154,14 @@ export default function MediaUpload({ eventCode, holeNumber, onUploadComplete }:
             <button
               onClick={handleUpload}
               disabled={uploading}
-              className="flex-1 bg-blue-600 text-white p-2 rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+              className="flex-1 bg-blue-600 text-white p-2  font-semibold hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
             >
               {uploading ? 'Uploading...' : 'Upload'}
             </button>
             <button
               onClick={handleCancel}
               disabled={uploading}
-              className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-4 py-2 border border-gray-300  hover:bg-gray-50 transition-colors"
             >
               Cancel
             </button>

@@ -67,7 +67,7 @@ export default function Leaderboard() {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <div className="bg-white rounded-lg shadow-lg p-6">
+      <div className="bg-white  shadow-sm p-6">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Live Leaderboard</h2>
           {competition && (
@@ -76,7 +76,7 @@ export default function Leaderboard() {
         </div>
 
         {lastUpdate && (
-          <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4 animate-pulse">
+          <div className="bg-blue-50 border border-blue-200  p-3 mb-4 animate-pulse">
             <span className="text-sm">
               <strong>{lastUpdate.username}</strong> just updated Hole {lastUpdate.holeNumber}
             </span>
@@ -87,7 +87,7 @@ export default function Leaderboard() {
           {leaderboard.map((entry, index) => (
             <div
               key={entry.username}
-              className={`border rounded-lg p-4 transition-all ${
+              className={`border  p-4 transition-all ${
                 index === 0 ? 'border-yellow-400 bg-yellow-50' :
                 index === 1 ? 'border-gray-400 bg-gray-50' :
                 index === 2 ? 'border-orange-400 bg-orange-50' :
@@ -117,9 +117,9 @@ export default function Leaderboard() {
                     <span>🌭 Hot Dogs</span>
                     <span className="font-semibold">{entry.total_hot_dogs || 0}/9</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-gray-200  h-2">
                     <div
-                      className="bg-orange-500 h-2 rounded-full transition-all"
+                      className="bg-orange-500 h-2  transition-all"
                       style={{ width: `${calculateProgress(entry.total_hot_dogs || 0, 9)}%` }}
                     />
                   </div>
@@ -130,9 +130,9 @@ export default function Leaderboard() {
                     <span>🍺 Beers</span>
                     <span className="font-semibold">{entry.total_beers || 0}/9</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-gray-200  h-2">
                     <div
-                      className="bg-yellow-500 h-2 rounded-full transition-all"
+                      className="bg-yellow-500 h-2  transition-all"
                       style={{ width: `${calculateProgress(entry.total_beers || 0, 9)}%` }}
                     />
                   </div>

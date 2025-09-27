@@ -6,6 +6,7 @@ import PhoneAuth from '@/components/PhoneAuth';
 import EventLeaderboard from '@/components/EventLeaderboard';
 import MediaUpload from '@/components/MediaUpload';
 import EventJoinCode from '@/components/EventJoinCode';
+import AugustaBackground from '@/components/ui/AugustaBackground';
 
 interface Event {
   id: string;
@@ -69,7 +70,7 @@ export default function EventPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin  h-12 w-12 border-b-2 border-blue-600"></div>
       </div>
     );
   }
@@ -86,22 +87,23 @@ export default function EventPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-b from-primary via-primary/90 to-primary relative">
+      <AugustaBackground variant="field" opacity={5} />
       {/* Classic header with Augusta green */}
-      <div className="bg-white border-b-4 border-green-700 shadow-sm">
+      <div className="bg-white border-b-4 border-primary shadow-md">
         <div className="max-w-6xl mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row justify-between items-start gap-6">
             <div className="flex-1">
-              <h1 className="text-3xl font-serif font-bold text-green-800 mb-2">{event.name}</h1>
+              <h1 className="text-3xl font-serif font-bold text-primary mb-2">{event.name}</h1>
               <div className="flex items-center gap-4 text-sm text-gray-900 font-medium">
                 {event.location && (
                   <div className="flex items-center gap-1">
-                    <span className="w-2 h-2 bg-green-700 rounded-full"></span>
+                    <span className="w-2 h-2 bg-primary "></span>
                     <span>{event.location}</span>
                   </div>
                 )}
                 <div className="flex items-center gap-1">
-                  <span className="w-2 h-2 bg-green-700 rounded-full"></span>
+                  <span className="w-2 h-2 bg-primary "></span>
                   <span>{new Date(event.event_date).toLocaleDateString('en-US', { 
                     weekday: 'long', 
                     year: 'numeric', 
@@ -119,14 +121,14 @@ export default function EventPage() {
               {!user ? (
                 <button
                   onClick={handleJoinEvent}
-                  className="px-8 py-3 bg-green-700 text-white font-semibold border-2 border-green-700 hover:bg-green-800 hover:border-green-800 transition-all duration-200 shadow-sm"
+                  className="px-8 py-3 bg-primary text-primary-foreground font-semibold border-2 border-primary hover:bg-primary/90 hover:border-primary/90 transition-all duration-200 shadow-sm"
                 >
                   JOIN CHALLENGE
                 </button>
               ) : (
                 <a
                   href={`/event/${eventCode}/play`}
-                  className="px-8 py-3 bg-white text-green-700 font-semibold border-2 border-green-700 hover:bg-green-50 transition-all duration-200 shadow-sm text-center"
+                  className="px-8 py-3 bg-white text-primary font-semibold border-2 border-primary hover:bg-secondary transition-all duration-200 shadow-sm text-center"
                 >
                   MY SCORECARD
                 </a>
@@ -150,7 +152,7 @@ export default function EventPage() {
 
         {/* Media Upload for Authenticated Users */}
         {user && (
-          <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="bg-white shadow-md p-6">
             <h2 className="text-2xl font-bold mb-4">📸 Share the Action</h2>
             <MediaUpload
               eventCode={eventCode}
