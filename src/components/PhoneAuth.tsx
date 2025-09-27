@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+import { validateAndFormatUSPhone } from '@/lib/phone-validation';
 
 interface PhoneAuthProps {
   redirectTo?: string;
@@ -18,16 +19,38 @@ export default function PhoneAuth({ redirectTo = '/dashboard', eventCode }: Phon
   const router = useRouter();
 
   const formatPhoneNumber = (value: string) => {
+    // Remove all non-digits
     const cleaned = value.replace(/\D/g, '');
-    const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
-    if (match) {
-      return `(${match[1]}) ${match[2]}-${match[3]}`;
+
+    // Limit to 10 digits (US phone numbers without country code)
+    const limited = cleaned.slice(0, 10);
+
+    // Format as (XXX) XXX-XXXX
+    if (limited.length >= 6) {
+      const areaCode = limited.slice(0, 3);
+      const middle = limited.slice(3, 6);
+      const last = limited.slice(6, 10);
+      return `(${areaCode}) ${middle}${last ? '-' + last : ''}`;
+    } else if (limited.length >= 3) {
+      const areaCode = limited.slice(0, 3);
+      const middle = limited.slice(3);
+      return `(${areaCode}) ${middle}`;
+    } else if (limited.length > 0) {
+      return `(${limited}`;
     }
-    return value;
+    return '';
   };
 
   const handleSendCode = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate phone number client-side first
+    const validation = validateAndFormatUSPhone(phoneNumber);
+    if (!validation.isValid) {
+      toast.error(validation.error!);
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -111,6 +134,9 @@ export default function PhoneAuth({ redirectTo = '/dashboard', eventCode }: Phon
                 required
                 disabled={loading}
               />
+              <p className="text-xs text-black mt-1">
+                US mobile numbers only • Standard SMS rates apply
+              </p>
             </div>
 
             <div>

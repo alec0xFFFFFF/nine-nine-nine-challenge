@@ -1,25 +1,81 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { stytchConfig } from '@/lib/stytch';
 import { createOrUpdateUser } from '@/lib/db-prisma';
 import jwt from 'jsonwebtoken';
+import { validateAndFormatUSPhone, rateLimiter } from '@/lib/phone-validation';
+
+// GET handler for checking auth status
+export async function GET() {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get('auth-token');
+
+    if (!token) {
+      return NextResponse.json(
+        { error: 'Not authenticated' },
+        { status: 401 }
+      );
+    }
+
+    const decoded = jwt.verify(
+      token.value,
+      process.env.JWT_SECRET || 'your-secret-key'
+    ) as any;
+
+    return NextResponse.json({
+      user: {
+        id: decoded.userId,
+        phoneNumber: decoded.phoneNumber,
+        displayName: decoded.displayName
+      }
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Invalid token' },
+      { status: 401 }
+    );
+  }
+}
 
 export async function POST(request: Request) {
   try {
     const { phoneNumber, code, displayName } = await request.json();
-    
+
     if (!phoneNumber || !code) {
       return NextResponse.json(
         { error: 'Phone number and code are required' },
         { status: 400 }
       );
     }
-    
-    // Format phone number to E.164
-    const formattedPhone = phoneNumber.replace(/\D/g, '');
-    const e164Phone = formattedPhone.startsWith('1') 
-      ? `+${formattedPhone}` 
-      : `+1${formattedPhone}`;
+
+    // Get client IP for rate limiting
+    const headersList = await headers();
+    const clientIp = headersList.get('x-forwarded-for')?.split(',')[0] ||
+                     headersList.get('x-real-ip') ||
+                     'unknown';
+
+    // Validate and format phone number (US only, with toll fraud protection)
+    const validation = validateAndFormatUSPhone(phoneNumber);
+
+    if (!validation.isValid) {
+      return NextResponse.json(
+        { error: validation.error },
+        { status: 400 }
+      );
+    }
+
+    const e164Phone = validation.e164Number!;
+
+    // Rate limiting for verification attempts
+    const rateLimitKey = `verify-${clientIp}-${e164Phone}`;
+    if (!rateLimiter.canAttempt(rateLimitKey)) {
+      const remainingMinutes = rateLimiter.getRemainingTime(rateLimitKey);
+      return NextResponse.json(
+        { error: `Too many verification attempts. Please try again in ${remainingMinutes} minutes.` },
+        { status: 429 }
+      );
+    }
     
     const response = await fetch(
       `https://test.stytch.com/v1/otps/authenticate`,

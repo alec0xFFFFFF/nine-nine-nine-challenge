@@ -55,7 +55,7 @@ export default function DashboardPage() {
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold text-blue-600">9/9/9 Challenge</h1>
           <div className="flex items-center gap-4">
-            <span className="text-gray-600">
+            <span className="text-black">
               Welcome, {user.displayName || user.phoneNumber}
             </span>
             <button
