@@ -116,7 +116,7 @@ export default function EventLeaderboard({ eventCode, showKudos = true }: EventL
                 <div className="flex items-center gap-6">
                   {/* Position */}
                   <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 border-2 border-gray-300">
-                    <span className="text-xl font-bold text-gray-700">
+                    <span className="text-xl font-bold text-gray-900">
                       {index + 1}
                     </span>
                   </div>
@@ -124,7 +124,7 @@ export default function EventLeaderboard({ eventCode, showKudos = true }: EventL
                   {/* Player Info */}
                   <div className="flex-1">
                     <h3 className="font-serif font-bold text-xl text-gray-900 mb-1">{getDisplayName(entry)}</h3>
-                    <div className="flex items-center gap-6 text-sm font-medium text-gray-600">
+                    <div className="flex items-center gap-6 text-sm font-medium text-gray-800">
                       <span className="bg-gray-100 px-2 py-1 rounded">TOTAL: {entry.total_score}</span>
                       <span>⛳ {entry.total_strokes || 0} strokes</span>
                       <span>👏 {entry.total_kudos} kudos</span>
@@ -146,7 +146,7 @@ export default function EventLeaderboard({ eventCode, showKudos = true }: EventL
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">🌭</span>
                   <div className="flex-1">
-                    <div className="flex justify-between text-xs font-medium text-gray-600 mb-1">
+                    <div className="flex justify-between text-xs font-medium text-gray-800 mb-1">
                       <span>HOT DOGS</span>
                       <span>{entry.total_hot_dogs || 0}/9</span>
                     </div>
@@ -162,7 +162,7 @@ export default function EventLeaderboard({ eventCode, showKudos = true }: EventL
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">🍺</span>
                   <div className="flex-1">
-                    <div className="flex justify-between text-xs font-medium text-gray-600 mb-1">
+                    <div className="flex justify-between text-xs font-medium text-gray-800 mb-1">
                       <span>BEERS</span>
                       <span>{entry.total_beers || 0}/9</span>
                     </div>
@@ -180,7 +180,7 @@ export default function EventLeaderboard({ eventCode, showKudos = true }: EventL
         </div>
 
         {leaderboard.length === 0 && (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-gray-700">
             No participants yet. Be the first to join!
           </div>
         )}

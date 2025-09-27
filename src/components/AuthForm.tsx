@@ -46,7 +46,7 @@ export default function AuthForm() {
       <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold mb-2">9/9/9 Challenge</h1>
-          <p className="text-gray-600">9 Holes ⛳ 9 Hot Dogs 🌭 9 Beers 🍺</p>
+          <p className="text-gray-800">9 Holes ⛳ 9 Hot Dogs 🌭 9 Beers 🍺</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

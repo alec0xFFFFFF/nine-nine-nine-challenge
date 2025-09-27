@@ -79,7 +79,7 @@ export default function EventPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-red-600 mb-2">Event Not Found</h1>
-          <p className="text-gray-600">The event code "{eventCode}" is invalid or expired.</p>
+          <p className="text-gray-800">The event code "{eventCode}" is invalid or expired.</p>
         </div>
       </div>
     );
@@ -93,7 +93,7 @@ export default function EventPage() {
           <div className="flex flex-col md:flex-row justify-between items-start gap-6">
             <div className="flex-1">
               <h1 className="text-3xl font-serif font-bold text-green-800 mb-2">{event.name}</h1>
-              <div className="flex items-center gap-4 text-sm text-gray-700 font-medium">
+              <div className="flex items-center gap-4 text-sm text-gray-900 font-medium">
                 {event.location && (
                   <div className="flex items-center gap-1">
                     <span className="w-2 h-2 bg-green-700 rounded-full"></span>

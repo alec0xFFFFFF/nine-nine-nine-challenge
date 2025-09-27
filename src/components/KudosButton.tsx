@@ -67,7 +67,7 @@ export default function KudosButton({ eventCode, participantId, participantName 
 
       {showKudosMenu && (
         <div className="absolute z-10 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 p-2 max-h-96 overflow-y-auto">
-          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-2 py-1 mb-1">
+          <div className="text-xs font-semibold text-gray-700 uppercase tracking-wider px-2 py-1 mb-1">
             Choose a Kudos
           </div>
           <div className="space-y-1">
@@ -78,7 +78,7 @@ export default function KudosButton({ eventCode, participantId, participantName 
                 disabled={giving || givenKudos.includes(key)}
                 className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
                   givenKudos.includes(key)
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    ? 'bg-gray-100 text-gray-800 cursor-not-allowed'
                     : 'hover:bg-yellow-50 hover:border-yellow-300 border border-transparent'
                 }`}
               >
@@ -86,7 +86,7 @@ export default function KudosButton({ eventCode, participantId, participantName 
                   <span className="text-2xl">{kudos.emoji}</span>
                   <div>
                     <div className="font-semibold text-sm">{kudos.name}</div>
-                    <div className="text-xs text-gray-600">{kudos.description}</div>
+                    <div className="text-xs text-gray-800">{kudos.description}</div>
                   </div>
                 </div>
               </button>

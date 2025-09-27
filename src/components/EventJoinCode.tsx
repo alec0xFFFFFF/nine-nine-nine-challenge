@@ -56,7 +56,7 @@ export default function EventJoinCode({ joinCode, eventCode }: EventJoinCodeProp
         <div className="grid md:grid-cols-2 gap-8">
           {/* QR Code */}
           <div className="text-center">
-            <h4 className="text-sm font-medium text-gray-700 uppercase tracking-wide mb-4">
+            <h4 className="text-sm font-medium text-gray-900 uppercase tracking-wide mb-4">
               Scan QR Code
             </h4>
             {qrCodeDataUrl && (
@@ -68,14 +68,14 @@ export default function EventJoinCode({ joinCode, eventCode }: EventJoinCodeProp
                 />
               </div>
             )}
-            <p className="text-xs text-gray-600 mt-3 uppercase tracking-wide">
+            <p className="text-xs text-gray-800 mt-3 uppercase tracking-wide">
               Point camera at code to join
             </p>
           </div>
 
           {/* Join Code */}
           <div className="text-center">
-            <h4 className="text-sm font-medium text-gray-700 uppercase tracking-wide mb-4">
+            <h4 className="text-sm font-medium text-gray-900 uppercase tracking-wide mb-4">
               Join Code
             </h4>
             <div className="bg-gray-50 border-2 border-gray-300 p-6">
@@ -93,14 +93,14 @@ export default function EventJoinCode({ joinCode, eventCode }: EventJoinCodeProp
                 {copied ? 'COPIED!' : 'COPY CODE'}
               </button>
             </div>
-            <p className="text-xs text-gray-600 mt-3 uppercase tracking-wide">
+            <p className="text-xs text-gray-800 mt-3 uppercase tracking-wide">
               Share this 6-digit code
             </p>
           </div>
         </div>
 
         <div className="mt-6 text-center border-t border-gray-200 pt-4">
-          <p className="text-xs text-gray-600 uppercase tracking-wide">
+          <p className="text-xs text-gray-800 uppercase tracking-wide">
             Participants can scan the QR code or enter the join code to access your event
           </p>
         </div>

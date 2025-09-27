@@ -71,7 +71,7 @@ export default function Leaderboard() {
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Live Leaderboard</h2>
           {competition && (
-            <span className="text-sm text-gray-500">{competition.name}</span>
+            <span className="text-sm text-gray-700">{competition.name}</span>
           )}
         </div>
 
@@ -96,18 +96,18 @@ export default function Leaderboard() {
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
-                  <span className="text-2xl font-bold text-gray-600">
+                  <span className="text-2xl font-bold text-gray-800">
                     {getPlaceEmoji(index + 1) || `#${index + 1}`}
                   </span>
                   <div>
                     <h3 className="font-semibold text-lg">{entry.username}</h3>
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-gray-700">
                       Score: {entry.total_score} (Lower is better)
                     </span>
                   </div>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm text-gray-600">⛳ {entry.total_strokes || 0} strokes</div>
+                  <div className="text-sm text-gray-800">⛳ {entry.total_strokes || 0} strokes</div>
                 </div>
               </div>
 
@@ -143,7 +143,7 @@ export default function Leaderboard() {
         </div>
 
         {leaderboard.length === 0 && (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-gray-700">
             No participants yet. Be the first to join!
           </div>
         )}

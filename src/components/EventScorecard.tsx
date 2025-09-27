@@ -110,16 +110,16 @@ export default function EventScorecard({ eventCode }: EventScorecardProps) {
         <div className="border-b border-gray-200 p-6">
           <div className="grid grid-cols-3 gap-6">
             <div className="text-center border-r border-gray-200 pr-6">
-              <div className="text-xs font-medium text-gray-600 uppercase tracking-wide mb-1">Total Strokes</div>
+              <div className="text-xs font-medium text-gray-800 uppercase tracking-wide mb-1">Total Strokes</div>
               <div className="text-3xl font-bold text-gray-900">{totals.strokes}</div>
             </div>
             <div className="text-center border-r border-gray-200 pr-6">
-              <div className="text-xs font-medium text-gray-600 uppercase tracking-wide mb-1">Hot Dogs</div>
-              <div className="text-3xl font-bold text-orange-600">{totals.hotDogs}<span className="text-lg text-gray-500">/9</span></div>
+              <div className="text-xs font-medium text-gray-800 uppercase tracking-wide mb-1">Hot Dogs</div>
+              <div className="text-3xl font-bold text-orange-600">{totals.hotDogs}<span className="text-lg text-gray-700">/9</span></div>
             </div>
             <div className="text-center">
-              <div className="text-xs font-medium text-gray-600 uppercase tracking-wide mb-1">Beers</div>
-              <div className="text-3xl font-bold text-yellow-600">{totals.beers}<span className="text-lg text-gray-500">/9</span></div>
+              <div className="text-xs font-medium text-gray-800 uppercase tracking-wide mb-1">Beers</div>
+              <div className="text-3xl font-bold text-yellow-600">{totals.beers}<span className="text-lg text-gray-700">/9</span></div>
             </div>
           </div>
         </div>
@@ -134,7 +134,7 @@ export default function EventScorecard({ eventCode }: EventScorecardProps) {
                 className={`aspect-square flex items-center justify-center font-bold border-2 transition-colors ${
                   currentHole === hole
                     ? 'bg-green-700 text-white border-green-700'
-                    : 'bg-white text-gray-700 border-gray-300 hover:border-green-300 hover:bg-green-50'
+                    : 'bg-white text-gray-900 border-gray-300 hover:border-green-300 hover:bg-green-50'
                 }`}
               >
                 {hole}
@@ -151,7 +151,7 @@ export default function EventScorecard({ eventCode }: EventScorecardProps) {
           
           {/* Strokes input */}
           <div>
-            <label className="block text-sm font-medium mb-2 text-gray-700 uppercase tracking-wide">Strokes</label>
+            <label className="block text-sm font-medium mb-2 text-gray-900 uppercase tracking-wide">Strokes</label>
             <input
               type="number"
               min="1"
@@ -166,7 +166,7 @@ export default function EventScorecard({ eventCode }: EventScorecardProps) {
 
           {/* Hot Dogs */}
           <div>
-            <label className="block text-sm font-medium mb-3 text-gray-700 uppercase tracking-wide">🌭 Hot Dogs Consumed</label>
+            <label className="block text-sm font-medium mb-3 text-gray-900 uppercase tracking-wide">🌭 Hot Dogs Consumed</label>
             <div className="grid grid-cols-4 gap-3">
               {[0, 1, 2, 3].map(num => (
                 <button
@@ -175,7 +175,7 @@ export default function EventScorecard({ eventCode }: EventScorecardProps) {
                   className={`aspect-square flex items-center justify-center text-lg font-bold border-2 transition-colors ${
                     currentScore.hot_dogs_consumed === num
                       ? 'bg-orange-600 text-white border-orange-600'
-                      : 'bg-white text-gray-700 border-gray-300 hover:border-orange-300 hover:bg-orange-50'
+                      : 'bg-white text-gray-900 border-gray-300 hover:border-orange-300 hover:bg-orange-50'
                   }`}
                   disabled={loading}
                 >
@@ -187,7 +187,7 @@ export default function EventScorecard({ eventCode }: EventScorecardProps) {
 
           {/* Beers */}
           <div>
-            <label className="block text-sm font-medium mb-3 text-gray-700 uppercase tracking-wide">🍺 Beers Consumed</label>
+            <label className="block text-sm font-medium mb-3 text-gray-900 uppercase tracking-wide">🍺 Beers Consumed</label>
             <div className="grid grid-cols-4 gap-3">
               {[0, 1, 2, 3].map(num => (
                 <button
@@ -196,7 +196,7 @@ export default function EventScorecard({ eventCode }: EventScorecardProps) {
                   className={`aspect-square flex items-center justify-center text-lg font-bold border-2 transition-colors ${
                     currentScore.beers_consumed === num
                       ? 'bg-yellow-600 text-white border-yellow-600'
-                      : 'bg-white text-gray-700 border-gray-300 hover:border-yellow-300 hover:bg-yellow-50'
+                      : 'bg-white text-gray-900 border-gray-300 hover:border-yellow-300 hover:bg-yellow-50'
                   }`}
                   disabled={loading}
                 >
@@ -209,7 +209,7 @@ export default function EventScorecard({ eventCode }: EventScorecardProps) {
           {/* Beer type selector */}
           {currentScore.beers_consumed > 0 && (
             <div>
-              <label className="block text-sm font-medium mb-2 text-gray-700 uppercase tracking-wide">Beer Type</label>
+              <label className="block text-sm font-medium mb-2 text-gray-900 uppercase tracking-wide">Beer Type</label>
               <select
                 value={currentScore.beer_type || ''}
                 onChange={(e) => updateScore(currentHole, 'beer_type', e.target.value)}

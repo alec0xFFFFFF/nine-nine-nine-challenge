@@ -54,57 +54,100 @@ export default function CreateEvent() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4">
-      <div className="bg-white rounded-lg shadow-lg p-6">
-        <h2 className="text-2xl font-bold text-center mb-6">Create New 9/9/9 Event</h2>
+    <div className="max-w-2xl mx-auto p-6">
+      <div className="border-4 border-green-800 shadow-2xl p-8" style={{
+        background: 'linear-gradient(145deg, #fefdf8, #f8f6f0)',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.1)'
+      }}>
+        {/* Masters-inspired header */}
+        <div className="text-center mb-8">
+          <div className="border-b-2 border-green-800 pb-4 mb-6">
+            <h2 className="text-3xl font-serif font-bold text-green-900 mb-2" style={{
+              textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
+              fontFamily: 'Georgia, serif'
+            }}>Create Tournament</h2>
+            <p className="text-sm text-green-800 font-semibold tracking-widest uppercase">9/9/9 Challenge</p>
+          </div>
+
+          <div className="flex justify-center items-center gap-6 text-2xl mb-4">
+            <div className="text-center">
+              <span className="block text-green-800">⛳</span>
+              <span className="text-xs text-green-700 font-serif">IX HOLES</span>
+            </div>
+            <div className="text-center">
+              <span className="block text-orange-700">🌭</span>
+              <span className="text-xs text-green-700 font-serif">IX DOGS</span>
+            </div>
+            <div className="text-center">
+              <span className="block text-amber-600">🍺</span>
+              <span className="text-xs text-green-700 font-serif">IX BEERS</span>
+            </div>
+          </div>
+        </div>
         
         {!shareUrl ? (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium mb-1">Event Name*</label>
+              <label className="block text-sm font-serif font-semibold text-green-900 mb-2 tracking-wide">Tournament Name*</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="Sunday Funday 9/9/9"
+                className="w-full p-4 border-3 border-green-800 focus:ring-4 focus:ring-green-300 focus:outline-none font-serif text-lg"
+                style={{
+                  background: 'linear-gradient(145deg, #fefdf8, #f8f6f0)',
+                  fontFamily: 'Georgia, serif'
+                }}
+                placeholder="The Masters 9/9/9 Championship"
                 required
                 disabled={loading}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">Date*</label>
+              <label className="block text-sm font-serif font-semibold text-green-900 mb-2 tracking-wide">Tournament Date*</label>
               <input
                 type="date"
                 value={eventDate}
                 onChange={(e) => setEventDate(e.target.value)}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full p-4 border-3 border-green-800 focus:ring-4 focus:ring-green-300 focus:outline-none font-serif text-lg"
+                style={{
+                  background: 'linear-gradient(145deg, #fefdf8, #f8f6f0)',
+                  fontFamily: 'Georgia, serif'
+                }}
                 required
                 disabled={loading}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">Location</label>
+              <label className="block text-sm font-serif font-semibold text-green-900 mb-2 tracking-wide">Golf Course</label>
               <input
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="Pine Valley Golf Club"
+                className="w-full p-4 border-3 border-green-800 focus:ring-4 focus:ring-green-300 focus:outline-none font-serif text-lg"
+                style={{
+                  background: 'linear-gradient(145deg, #fefdf8, #f8f6f0)',
+                  fontFamily: 'Georgia, serif'
+                }}
+                placeholder="Augusta National Golf Club"
                 disabled={loading}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium mb-1">Description</label>
+              <label className="block text-sm font-serif font-semibold text-green-900 mb-2 tracking-wide">Tournament Description</label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                placeholder="Annual 9/9/9 championship. May the best stomach win!"
-                rows={3}
+                className="w-full p-4 border-3 border-green-800 focus:ring-4 focus:ring-green-300 focus:outline-none font-serif text-lg"
+                style={{
+                  background: 'linear-gradient(145deg, #fefdf8, #f8f6f0)',
+                  fontFamily: 'Georgia, serif'
+                }}
+                placeholder="An exclusive 9/9/9 championship. A tradition unlike any other."
+                rows={4}
                 disabled={loading}
               />
             </div>
@@ -112,28 +155,39 @@ export default function CreateEvent() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-green-600 text-white p-3 rounded-lg font-semibold hover:bg-green-700 disabled:bg-gray-400 transition-colors"
+              className="w-full bg-gradient-to-r from-green-800 to-green-900 text-cream-50 p-4 font-bold hover:from-green-900 hover:to-green-800 disabled:from-gray-500 disabled:to-gray-600 transition-all duration-300 transform hover:scale-105 border-2 border-green-800 shadow-lg"
+              style={{
+                fontFamily: 'Georgia, serif',
+                textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
+              }}
             >
-              {loading ? 'Creating...' : 'Create Event & Get Share Link'}
+              {loading ? 'CREATING TOURNAMENT...' : 'CREATE TOURNAMENT & GET LINK'}
             </button>
           </form>
         ) : (
-          <div className="text-center space-y-4">
-            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-              <p className="text-sm text-gray-600 mb-2">Share this link with participants:</p>
-              <div className="bg-white rounded border border-gray-300 p-2 break-all text-sm">
+          <div className="text-center space-y-6">
+            <div className="bg-green-100 border-l-4 border-green-800 p-6">
+              <h3 className="font-serif font-bold text-green-900 mb-3 text-xl">Tournament Created Successfully!</h3>
+              <p className="text-sm font-serif text-green-800 mb-4">Share this exclusive invitation with participants:</p>
+              <div className="border-3 border-green-800 p-4 break-all font-mono text-sm" style={{
+                background: 'linear-gradient(145deg, #fefdf8, #f8f6f0)'
+              }}>
                 {shareUrl}
               </div>
             </div>
-            
+
             <button
               onClick={() => navigator.clipboard.writeText(shareUrl)}
-              className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+              className="w-full bg-gradient-to-r from-green-700 to-green-800 text-cream-50 p-4 font-bold hover:from-green-800 hover:to-green-900 transition-all duration-300 transform hover:scale-105 border-2 border-green-800 shadow-lg"
+              style={{
+                fontFamily: 'Georgia, serif',
+                textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
+              }}
             >
-              Copy Link Again
+              COPY INVITATION LINK
             </button>
-            
-            <p className="text-sm text-gray-500">Redirecting to event page...</p>
+
+            <p className="text-sm text-green-700 font-serif italic">Redirecting to tournament leaderboard...</p>
           </div>
         )}
       </div>

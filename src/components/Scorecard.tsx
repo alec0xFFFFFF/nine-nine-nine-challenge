@@ -101,15 +101,15 @@ export default function Scorecard() {
         
         <div className="grid grid-cols-3 gap-2 mb-6 text-center">
           <div className="bg-blue-100 rounded p-2">
-            <div className="text-xs text-gray-600">Strokes</div>
+            <div className="text-xs text-gray-800">Strokes</div>
             <div className="text-xl font-bold">{totals.strokes}</div>
           </div>
           <div className="bg-orange-100 rounded p-2">
-            <div className="text-xs text-gray-600">Hot Dogs</div>
+            <div className="text-xs text-gray-800">Hot Dogs</div>
             <div className="text-xl font-bold">{totals.hotDogs}/9</div>
           </div>
           <div className="bg-yellow-100 rounded p-2">
-            <div className="text-xs text-gray-600">Beers</div>
+            <div className="text-xs text-gray-800">Beers</div>
             <div className="text-xl font-bold">{totals.beers}/9</div>
           </div>
         </div>

@@ -68,7 +68,7 @@ export default function EventPlayPage() {
             <h1 className="text-2xl font-bold text-blue-600">
               {event?.name || '9/9/9 Challenge'}
             </h1>
-            <p className="text-sm text-gray-600">Event Code: {eventCode}</p>
+            <p className="text-sm text-gray-800">Event Code: {eventCode}</p>
           </div>
           <div className="flex gap-4">
             <Link
