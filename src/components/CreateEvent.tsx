@@ -12,6 +12,7 @@ export default function CreateEvent() {
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [shareUrl, setShareUrl] = useState('');
+  const [selectedChallenge, setSelectedChallenge] = useState<any>(null);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -26,7 +27,8 @@ export default function CreateEvent() {
           name,
           eventDate,
           location,
-          description
+          description,
+          challengeType: selectedChallenge?.name || '9/9/9 Golf Challenge'
         })
       });
 
@@ -71,7 +73,14 @@ export default function CreateEvent() {
           </div>
 
           <div className="flex justify-center mb-4">
-            <TournamentStats variant="compact" />
+            <TournamentStats
+              variant="compact"
+              interactive={true}
+              onChallengeChange={(challenge) => {
+                setSelectedChallenge(challenge);
+                setName(challenge.name);
+              }}
+            />
           </div>
         </div>
         

@@ -13,6 +13,7 @@ import AugustaBackground from '@/components/ui/AugustaBackground';
 
 export default function Home() {
   const [eventCode, setEventCode] = useState('');
+  const [currentChallenge, setCurrentChallenge] = useState<any>(null);
   const router = useRouter();
 
   const handleJoinEvent = (e: React.FormEvent) => {
@@ -44,14 +45,26 @@ export default function Home() {
                 <p className="text-muted-foreground font-serif italic">Join the Championship</p>
               </CardHeader>
               <CardContent className="space-y-6">
-                <TournamentStats variant="default" />
+                <TournamentStats
+                  variant="default"
+                  autoRotate={true}
+                  onChallengeChange={setCurrentChallenge}
+                />
 
                 <div className="space-y-4">
-                  <Button asChild size="lg" className="w-full font-serif">
-                    <Link href="/dashboard">
-                      ⛳ HOST NEW TOURNAMENT
-                    </Link>
-                  </Button>
+                  {currentChallenge?.name === 'Split the G Challenge' ? (
+                    <Button asChild size="lg" className="w-full font-serif bg-yellow-600 hover:bg-yellow-700">
+                      <Link href="/split-the-g">
+                        🍺 START G-SPLIT CHALLENGE
+                      </Link>
+                    </Button>
+                  ) : (
+                    <Button asChild size="lg" className="w-full font-serif">
+                      <Link href="/dashboard">
+                        ⛳ HOST NEW TOURNAMENT
+                      </Link>
+                    </Button>
+                  )}
 
                   <div className="flex items-center">
                     <div className="flex-grow border-t border-border"></div>
